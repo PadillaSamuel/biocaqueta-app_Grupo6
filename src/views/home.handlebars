@@ -1,0 +1,79 @@
+<section class="panel" aria-labelledby="titulo-registro">
+  <h1 id="titulo-registro">Registrar avistamiento</h1>
+  <form action="/api/avistamientos" method="post">
+    <div class="campos">
+      <label>Nombre común
+        <input name="nombreComun" placeholder="Danta amazónica" required>
+      </label>
+      <label>Nombre científico
+        <input name="nombreCientifico" placeholder="Tapirus terrestris" required>
+      </label>
+      <label>Categoría
+        <select name="categoria" required>
+          <option value="" selected disabled>Selecciona una categoría</option>
+          {{#each categorias}}
+            <option value="{{this}}">{{this}}</option>
+          {{/each}}
+        </select>
+      </label>
+      <label>Zona
+        <input name="zona" placeholder="El Caraño" required>
+      </label>
+      <label>Estado de conservación
+        <select name="estadoConservacion">
+          {{#each estadosConservacion}}
+            <option value="{{this}}">{{this}}</option>
+          {{/each}}
+        </select>
+      </label>
+      <label>Investigador
+        <input name="investigador" required>
+      </label>
+    </div>
+    <button type="submit">Guardar avistamiento</button>
+  </form>
+</section>
+
+<section class="panel" id="avistamientos" aria-labelledby="titulo-listado">
+  <h2 id="titulo-listado">Avistamientos registrados</h2>
+  {{#if avistamientos}}
+    <div class="tabla" role="region" aria-labelledby="titulo-listado" tabindex="0">
+      <table aria-labelledby="titulo-listado">
+        <thead>
+          <tr>
+            <th scope="col">Especie</th>
+            <th scope="col">Categoría</th>
+            <th scope="col">Zona</th>
+            <th scope="col">Conservación</th>
+            <th scope="col">Investigador</th>
+            <th scope="col">Fecha de registro</th>
+            <th scope="col">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each avistamientos}}
+            <tr>
+              <td><strong>{{nombreComun}}</strong><br><em>{{nombreCientifico}}</em></td>
+              <td>{{categoria}}</td>
+              <td>{{zona}}</td>
+              <td>{{estadoConservacion}}</td>
+              <td>{{investigador}}</td>
+              <td>{{fechaColombia fechaRegistro}}</td>
+              <td>
+                <div class="acciones">
+                  <a href="/editar/{{_id}}" aria-label="Editar {{nombreComun}}">Editar</a>
+                  <form action="/api/avistamientos/delete/{{_id}}" method="post"
+                        onsubmit="return confirm('¿Eliminar este avistamiento?');">
+                    <button class="eliminar" type="submit" aria-label="Eliminar {{nombreComun}}">Eliminar</button>
+                  </form>
+                </div>
+              </td>
+            </tr>
+          {{/each}}
+        </tbody>
+      </table>
+    </div>
+  {{else}}
+    <p>Todavía no hay avistamientos registrados.</p>
+  {{/if}}
+</section>
