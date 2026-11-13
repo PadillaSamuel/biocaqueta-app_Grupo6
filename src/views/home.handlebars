@@ -12,7 +12,7 @@
         <select name="categoria" required>
           <option value="" selected disabled>Selecciona una categoría</option>
           {{#each categorias}}
-            <option value="{{this}}">{{this}}</option>
+            <option value="{{valor}}">{{valor}}</option>
           {{/each}}
         </select>
       </label>
@@ -21,8 +21,8 @@
       </label>
       <label>Estado de conservación
         <select name="estadoConservacion">
-          {{#each estadosConservacion}}
-            <option value="{{this}}">{{this}}</option>
+          {{#each estados}}
+            <option value="{{valor}}" {{#if seleccionado}}selected{{/if}}>{{valor}}</option>
           {{/each}}
         </select>
       </label>
@@ -36,6 +36,24 @@
 
 <section class="panel" id="avistamientos" aria-labelledby="titulo-listado">
   <h2 id="titulo-listado">Avistamientos registrados</h2>
+  <form action="/" method="get">
+    <div class="campos">
+      <label>Filtrar por categoría
+        <select name="categoria">
+          <option value="">Todas</option>
+          {{#each filtroCategorias}}
+            <option value="{{valor}}" {{#if seleccionado}}selected{{/if}}>{{valor}}</option>
+          {{/each}}
+        </select>
+      </label>
+    </div>
+    <div class="acciones">
+      <button type="submit">Filtrar</button>
+      {{#if categoriaFiltrada}}
+        <a href="/">Quitar filtro</a>
+      {{/if}}
+    </div>
+  </form>
   {{#if avistamientos}}
     <div class="tabla" role="region" aria-labelledby="titulo-listado" tabindex="0">
       <table aria-labelledby="titulo-listado">
@@ -58,7 +76,7 @@
               <td>{{zona}}</td>
               <td>{{estadoConservacion}}</td>
               <td>{{investigador}}</td>
-              <td>{{fechaColombia fechaRegistro}}</td>
+              <td>{{fechaTexto}}</td>
               <td>
                 <div class="acciones">
                   <a href="/editar/{{_id}}" aria-label="Editar {{nombreComun}}">Editar</a>

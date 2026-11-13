@@ -8,6 +8,7 @@ import { engine } from "express-handlebars";
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(express.static("./src/public"));
 app.engine("handlebars", engine());
 app.set("view engine", "handlebars");
 app.set("views", "./src/views");

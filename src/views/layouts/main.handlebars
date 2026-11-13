@@ -1,22 +1,19 @@
-<section class="panel">
-  <h1>Editar avistamiento</h1>
-  <p>{{avistamiento.nombreComun}} · <em>{{avistamiento.nombreCientifico}}</em></p>
-  <form action="/api/avistamientos/update/{{avistamiento._id}}" method="post">
-    <div class="campos">
-      <label>Zona
-        <input name="zona" value="{{avistamiento.zona}}" required>
-      </label>
-      <label>Estado de conservación
-        <select name="estadoConservacion" required>
-          {{#each estados}}
-            <option value="{{valor}}" {{#if seleccionado}}selected{{/if}}>{{valor}}</option>
-          {{/each}}
-        </select>
-      </label>
-    </div>
-    <div class="acciones">
-      <button type="submit">Guardar cambios</button>
-      <a href="/#avistamientos">Cancelar</a>
-    </div>
-  </form>
-</section>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BioCaquetá | {{titulo}}</title>
+  <link rel="stylesheet" href="/estilos.css">
+</head>
+<body>
+  <header class="barra">
+    <nav class="navegacion contenedor" aria-label="Principal">
+      <a class="marca" href="/">BioCaquetá</a>
+    </nav>
+  </header>
+  <main class="contenedor">
+    {{{body}}}
+  </main>
+</body>
+</html>
